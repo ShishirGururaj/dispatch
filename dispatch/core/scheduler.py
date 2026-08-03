@@ -2,6 +2,7 @@ import heapq
 
 from dispatch.core.task import Task
 from dispatch.utils.logger import logger
+from dispatch.utils.decorators import log_execution
 
 class Scheduler:
     """Schedules tasks by priority"""
@@ -9,6 +10,7 @@ class Scheduler:
     def __init__(self) -> None:
         self._queue: list[tuple[int, int, Task]] = []
 
+    @log_execution
     def add_task(self, task: Task) -> None:
         heapq.heappush(
             self._queue,
@@ -20,6 +22,7 @@ class Scheduler:
             task.priority.name,
         )
 
+    @log_execution
     def next_task(self) -> Task:
         if not self._queue:
             raise IndexError("Scheduler is empty.")
