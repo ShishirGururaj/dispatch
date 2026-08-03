@@ -6,4 +6,7 @@ __pycache__/
 .idea/
 .coverage
 htmlcov/
-*.log
+logs/*.log
+
+# Runtime data
+dispatch/data/*.json
