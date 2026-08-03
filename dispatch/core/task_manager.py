@@ -10,7 +10,7 @@ class TaskManager:
 
     def add_task(self, task: Task) -> None:
         if task.id in self._tasks:
-            raise DuplicateTaskError(f"Task with ID {task:id} already exists.")
+            raise DuplicateTaskError(f"Task with ID {task.id} already exists.")
 
         self._tasks[task.id] = task
 
