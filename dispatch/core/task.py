@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum, auto
+from .exceptions import InvalidTaskError
 
 class Priority(Enum):
     HIGH = auto()
@@ -26,15 +27,15 @@ class Task:
         """Validate and normalize task data after initialization."""
         
         if self.id <= 0:
-            raise ValueError("Taks ID must be greater than zero (0).")
+            raise InvalidTaskError("Taks ID must be greater than zero (0).")
 
         self.name = self.name.strip()
 
         if not self.name:
-            raise ValueError("Task Name can't be empty.")
+            raise InvalidTaskError("Task Name can't be empty.")
 
         if self.retries < 0:
-            raise ValueError("Retries can't be negative.")
+            raise InvalidTaskError("Retries can't be negative.")
 
     def start(self) -> None:
         """Mark the task as running."""

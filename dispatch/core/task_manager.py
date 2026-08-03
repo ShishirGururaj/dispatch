@@ -1,5 +1,6 @@
 from __future__ import annotations
 from .task import Task
+from .exceptions import (DuplicateTaskError, TaskNotFoundError)
 
 class TaskManager:
     """Manages the lifecycle of tasks"""
@@ -9,7 +10,7 @@ class TaskManager:
 
     def add_task(self, task: Task) -> None:
         if task.id in self._tasks:
-            raise ValueError(f"Task with ID {task:id} already exists.")
+            raise DuplicateTaskError(f"Task with ID {task:id} already exists.")
 
         self._tasks[task.id] = task
 
@@ -17,11 +18,11 @@ class TaskManager:
         try:
             return self._tasks[task_id]
         except KeyError:
-            raise ValueError(f"No task found with ID {task_id}.")
+            raise TaskNotFoundError(f"No task found with ID {task_id}.")
 
     def remove_task(self, task_id: int) -> None:
         if task_id not in self._tasks:
-            raise ValueError(f"No task found with ID {task_id}.")
+            raise TaskNotFoundError(f"No task found with ID {task_id}.")
 
         del self._tasks[task_id]
 
